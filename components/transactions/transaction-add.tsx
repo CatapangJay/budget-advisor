@@ -8,41 +8,35 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-type Transaction = {
-  id: number;
-  description: string;
-  category: string;
-  amount: number;
-  type: "income" | "expense";
-};
+import { createClient } from "@/utils/supabase/client";
+import { addTransaction } from "@/services/supabase/transaction-services";
+
 
 export function AddTransaction() {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    { id: 1, description: "Salary Received on July", amount: 5000, type: "income", category: "Salary" },
-    { id: 2, description: "Payment for July", amount: 1000, type: "expense", category: "Rent" },
-    { id: 3, description: "Groceries for July", amount: 200, type: "expense", category: "Groceries"  },
-  ]);
+  const [newTransaction, setNewTransaction] = useState<Omit<Transaction, "id">>({
+    description: "",
+    amount: 0,
+    type: "expense",
+    category: "",
+  });
 
-  const [newTransaction, setNewTransaction] = useState<Omit<Transaction, "id">>(
-    {
-      description: "",
-      amount: 0,
-      type: "expense",
-      category: "",
-    }
-  );
+  const { toast } = useToast()
 
-  const addTransaction = () => {
+  const handleTransaction = async () => {
     if (newTransaction.description && newTransaction.amount > 0) {
-      setTransactions([
-        ...transactions,
-        { ...newTransaction, id: transactions.length + 1 },
-      ]);
-      setNewTransaction({ description: "", amount: 0, type: "expense", category: "" });
+      const data = await addTransaction(newTransaction);
+      
+      if (data) {
+        toast({
+          variant: "success",
+          description: "Transaction added successfully",
+        });
+        setNewTransaction({ description: "", amount: 0, type: "expense", category: "" });
+      }
     }
   };
 
@@ -57,7 +51,6 @@ export function AddTransaction() {
       <CardContent>
         <form className="space-y-4">
           <div className="grid gap-2">
-            <Label htmlFor="amount">Amount</Label>
             <Input
               id="amount"
               type="number"
@@ -72,7 +65,6 @@ export function AddTransaction() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="category">Category</Label>
             <Select
               value={newTransaction.category}
               onValueChange={(value) =>
@@ -93,7 +85,6 @@ export function AddTransaction() {
             </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
             <Input
               id="description"
               placeholder="Enter transaction description"
@@ -107,7 +98,6 @@ export function AddTransaction() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="type">Type</Label>
             <Select
               value={newTransaction.type}
               onValueChange={(value) =>
@@ -129,7 +119,7 @@ export function AddTransaction() {
         </form>
       </CardContent>
       <CardFooter>
-        <Button onClick={addTransaction}>Add Transaction</Button>
+        <Button onClick={handleTransaction}>Add Transaction</Button>
       </CardFooter>
     </Card>
   );
