@@ -78,7 +78,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { AddTransaction } from "../../components/transactions/transaction-add"
-import { TransactionsTable } from "@/components/transactions/transactions-view"
+import { RecentTransactionsTable } from "@/components/transactions/transactions-view"
 import { TransactionsTotalsCard } from "@/components/transactions/transactions-totals"
 
 export default async function Dashboard() {
@@ -296,7 +296,7 @@ export default async function Dashboard() {
                   <Button>Create New Order</Button>
                 </CardFooter>
               </Card> */}
-              <TransactionsTotalsCard />
+              <TransactionsTotalsCard className="sm:col-span-2" />
               <Card x-chunk="A stats card showing this month's total sales in USD, the percentage difference from last month, and a progress bar.">
                 <CardHeader className="pb-2">
                   <CardDescription>This Month</CardDescription>
@@ -356,7 +356,7 @@ export default async function Dashboard() {
                 </div>
               </div>
               <TabsContent value="week">
-                <TransactionsTable />
+                <RecentTransactionsTable />
               </TabsContent>
             </Tabs>
           </div>

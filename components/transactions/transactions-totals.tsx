@@ -4,7 +4,7 @@ import { fetchTransactions, getTotalCount } from "@/services/supabase/transactio
 import { createClient } from "@/utils/supabase/client";
 import { Progress } from "../ui/progress";
 
-export function TransactionsTotalsCard() {
+export function TransactionsTotalsCard({className}: {className?: string}) {
     const supabase = createClient();
     const [totalAmount, setTotalAmount] = useState<number>()
     const [isLoading, setIsLoading] = useState(true);
@@ -30,10 +30,10 @@ export function TransactionsTotalsCard() {
         setIsLoading(false);
     }
 
-    return (<Card x-chunk="A stats card showing this week's total sales in USD, the percentage difference from last week, and a progress bar.">
+    return (<Card className={className} x-chunk="A stats card showing this week's total sales in USD, the percentage difference from last week, and a progress bar.">
         <CardHeader className="pb-2">
-          <CardDescription>This Week</CardDescription>
-          <CardTitle className="text-4xl">${totalAmount}</CardTitle>
+          <CardDescription>Total</CardDescription>
+          <CardTitle className="text-4xl">${totalAmount?.toLocaleString()}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-xs text-muted-foreground">
