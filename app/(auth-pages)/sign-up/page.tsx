@@ -15,6 +15,13 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
     );
   }
 
+  const handleSignUp = async (formData: FormData) => {
+    const result = await signUpAction(formData);
+    if (result.error) {
+      // handle the error message
+    }
+  };
+
   return (
     <>
       <form className="flex flex-col min-w-64 max-w-64 mx-auto">
@@ -36,7 +43,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
+          <SubmitButton formAction={handleSignUp} pendingText="Signing up...">
             Sign up
           </SubmitButton>
           <FormMessage message={searchParams} />
