@@ -5,8 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export default function Page() {
   // return <BudgetTrackerComponent />
   return (
-    <TooltipProvider>
-      <Dashboard />
-    </TooltipProvider>
+    <>Hello</>
   );
 }

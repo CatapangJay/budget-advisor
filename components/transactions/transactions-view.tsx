@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -17,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { Transaction } from "./transaction";
 
 export function TransactionsTable() {
   const supabase = createClient();
@@ -28,7 +31,7 @@ export function TransactionsTable() {
       loadTransactions();
     }
     const channel = supabase
-      .channel("realtime transactions")
+      .channel("realtime recent transactions")
       .on(
         "postgres_changes",
         {

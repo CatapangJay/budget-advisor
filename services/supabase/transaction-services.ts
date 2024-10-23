@@ -29,6 +29,32 @@ export async function getTotalCount(): Promise<number> {
     return data || 0
 }
 
+export async function getNetTotal(): Promise<number> {
+    const { data, error } = await supabase
+        .rpc('get_net_total_current_month')
+
+    if (error) {
+        console.error('Error fetching total amount:', error)
+        return 0
+    }
+
+    // `data` will return an array with the sum of 'amount'
+    return data || 0
+}
+
+export async function getMonthTotal(): Promise<number> {
+    const { data, error } = await supabase
+        .rpc('get_net_total_current_month')
+
+    if (error) {
+        console.error('Error fetching total amount:', error)
+        return 0
+    }
+
+    // `data` will return an array with the sum of 'amount'
+    return data || 0
+}
+
 export async function addTransaction(transaction: Omit<Transaction, 'id' | 'created_at'>): Promise<Transaction | null> {
     const { data, error } = await supabase
         .from('transactions')

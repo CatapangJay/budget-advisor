@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import {
   Card,
@@ -14,17 +16,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 
 import { createClient } from "@/utils/supabase/client";
 import { addTransaction } from "@/services/supabase/transaction-services";
+import { Transaction, TransactionType } from "./transaction";
 
 
 export function AddTransaction() {
   const [newTransaction, setNewTransaction] = useState<Omit<Transaction, "id">>({
     description: "",
     amount: 0,
-    type: "expense",
+    type: TransactionType.EXPENSE,
     category: "",
   });
 
   const { toast } = useToast()
+  const isFormValid = newTransaction.description && newTransaction.amount > 0;
 
   const handleTransaction = async () => {
     if (newTransaction.description && newTransaction.amount > 0) {
@@ -35,7 +39,7 @@ export function AddTransaction() {
           variant: "success",
           description: "Transaction added successfully",
         });
-        setNewTransaction({ description: "", amount: 0, type: "expense", category: "" });
+        setNewTransaction({ description: "", amount: 0, type: TransactionType.EXPENSE, category: "" });
       }
     }
   };
@@ -103,7 +107,7 @@ export function AddTransaction() {
               onValueChange={(value) =>
                 setNewTransaction({
                   ...newTransaction,
-                  type: value as "income" | "expense",
+                  type: value as TransactionType,
                 })
               }
             >
@@ -111,15 +115,15 @@ export function AddTransaction() {
                 <SelectValue placeholder="Select transaction type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="income">Income</SelectItem>
-                <SelectItem value="expense">Expense</SelectItem>
+                <SelectItem value={TransactionType.INCOME}>Income</SelectItem>
+                <SelectItem value={TransactionType.EXPENSE}>Expense</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </form>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleTransaction}>Add Transaction</Button>
+        <Button onClick={handleTransaction} disabled={!isFormValid}>Add Transaction</Button>
       </CardFooter>
     </Card>
   );

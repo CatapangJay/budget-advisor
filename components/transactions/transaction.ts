@@ -1,9 +1,13 @@
 
-type Transaction = {
+export type Transaction = {
     id: number;
     description: string;
     category: string;
     amount: number;
-    type: "income" | "expense";
+    type: TransactionType;
   };
-  
+
+export enum TransactionType {
+  INCOME = 'income',
+  EXPENSE = 'expense',
+}
