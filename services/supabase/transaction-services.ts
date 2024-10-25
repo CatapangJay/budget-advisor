@@ -1,3 +1,4 @@
+import { Transaction } from "@/components/transactions/transaction";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
@@ -34,7 +35,7 @@ export async function getNetTotal(): Promise<number> {
         .rpc('get_net_total_current_month')
 
     if (error) {
-        console.error('Error fetching total amount:', error)
+        console.error('Error fetching net total amount:', error)
         return 0
     }
 
@@ -47,7 +48,7 @@ export async function getMonthTotal(): Promise<number> {
         .rpc('get_net_total_current_month')
 
     if (error) {
-        console.error('Error fetching total amount:', error)
+        console.error('Error fetching current month total amount:', error)
         return 0
     }
 

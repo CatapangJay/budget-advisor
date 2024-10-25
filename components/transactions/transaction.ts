@@ -5,6 +5,7 @@ export type Transaction = {
     category: string;
     amount: number;
     type: TransactionType;
+    transaction_date: Date;
   };
 
 export enum TransactionType {

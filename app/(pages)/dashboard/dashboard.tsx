@@ -77,8 +77,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { AddTransaction } from "../../components/transactions/transaction-add"
-import { RecentTransactionsTable } from "@/components/transactions/transactions-view"
+import { AddTransaction } from "../../../components/transactions/transaction-add"
+import { RecentTransactionsTable } from "@/components/transactions/transactions-tables"
 import { TransactionsTotalsCard } from "@/components/transactions/transactions-totals"
 
 export default async function Dashboard() {

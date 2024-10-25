@@ -17,6 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { createClient } from "@/utils/supabase/client";
 import { addTransaction } from "@/services/supabase/transaction-services";
 import { Transaction, TransactionType } from "./transaction";
+import { DatePicker } from "../date-picker";
 
 
 export function AddTransaction() {
@@ -25,6 +26,7 @@ export function AddTransaction() {
     amount: 0,
     type: TransactionType.EXPENSE,
     category: "",
+    transaction_date: new Date(),
   });
 
   const { toast } = useToast()
@@ -33,13 +35,13 @@ export function AddTransaction() {
   const handleTransaction = async () => {
     if (newTransaction.description && newTransaction.amount > 0) {
       const data = await addTransaction(newTransaction);
-      
+
       if (data) {
         toast({
           variant: "success",
           description: "Transaction added successfully",
         });
-        setNewTransaction({ description: "", amount: 0, type: TransactionType.EXPENSE, category: "" });
+        setNewTransaction({ description: "", amount: 0, type: TransactionType.EXPENSE, category: "", transaction_date: new Date() });
       }
     }
   };
@@ -119,6 +121,15 @@ export function AddTransaction() {
                 <SelectItem value={TransactionType.EXPENSE}>Expense</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+          <div className="grid gap-2">
+            <DatePicker
+              date={newTransaction.transaction_date}
+              onDateChange={(date: Date | undefined) =>
+                setNewTransaction({
+                  ...newTransaction,
+                  transaction_date: date || new Date()
+                })} />
           </div>
         </form>
       </CardContent>
