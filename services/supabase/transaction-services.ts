@@ -1,5 +1,6 @@
-import { Transaction } from "@/components/transactions/transaction";
+import { Transaction } from "@/models/transaction-models";
 import { createClient } from "@/utils/supabase/client";
+import { UUID } from "crypto";
 
 const supabase = createClient();
 
@@ -85,7 +86,7 @@ export async function updateTransaction(transaction: Transaction): Promise<Trans
     return data?.[0] || null
 }
 
-export async function deleteTransaction(id: number): Promise<boolean> {
+export async function deleteTransaction(id: UUID): Promise<boolean> {
     const { error } = await supabase
         .from('transactions')
         .delete()

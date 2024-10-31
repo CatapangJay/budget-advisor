@@ -7,6 +7,7 @@ import {
   ChartPie,
   Coins,
   Command,
+  Component,
   Frame,
   LifeBuoy,
   Map,
@@ -62,8 +63,13 @@ const data = {
     },
     {
       title: "Budgets",
-      url: "#",
+      url: "budgets",
       icon: BookOpen,
+    },
+    {
+      title: "Categories",
+      url: "categories",
+      icon: Component,
     },
   ],
   navSecondary: [

@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Transaction } from "./transaction";
+import { Transaction } from "../../models/transaction-models";
 import { Checkbox } from "../ui/checkbox";
 import { Edit, Trash } from "lucide-react";
 import { Button } from "../ui/button";
@@ -79,7 +79,6 @@ export function TransactionsTable() {
                 <TableHead>
                   <Checkbox />
                 </TableHead>
-                <TableHead>ID</TableHead>
                 <TableHead>Description</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
@@ -93,7 +92,6 @@ export function TransactionsTable() {
                   <TableCell>
                     <Checkbox />
                   </TableCell>
-                  <TableCell>{transaction.id}</TableCell>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.type}</TableCell>
                   <TableCell>{transaction.amount}</TableCell>

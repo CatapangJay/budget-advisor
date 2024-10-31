@@ -1,34 +1,30 @@
 import PageContainer from '@/components/layout/page-container';
 import { TransactionsTable } from '@/components/transactions/transactions-tables';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
+import BudgetForm from './budget-form';
+import { BudgetsTable } from './budget-table';
 
-type TTransactionListingPage = {};
+type TBudgetListingPage = {};
 
-export default async function TransactionListingPage({}: TTransactionListingPage) {
-  // Showcasing the use of search params cache in nested RSCs
+export default async function BudgetListingPage({ }: TBudgetListingPage) {
   return (
     <PageContainer scrollable>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <Heading
-            title={`Transactions`}
-            description="Manage transactions and their details."
+            title={`Budgets`}
+            description="Budget Categories and their details."
           />
-
-          <Link
-            href={'/dashboard/employee/new'}
-            className={cn(buttonVariants({ variant: 'default' }))}
-          >
-            <Plus className="mr-2 h-4 w-4" /> Add New
-          </Link>
+          <BudgetForm />
         </div>
         <Separator />
-        <TransactionsTable />
+        <BudgetsTable />
       </div>
     </PageContainer>
   );

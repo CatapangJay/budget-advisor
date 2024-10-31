@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 
 import { createClient } from "@/utils/supabase/client";
 import { addTransaction } from "@/services/supabase/transaction-services";
-import { Transaction, TransactionType } from "./transaction";
+import { Transaction, TransactionType } from "../../models/transaction-models";
 import { DatePicker } from "../date-picker";
 
 
@@ -87,6 +87,8 @@ export function AddTransaction() {
                 <SelectItem value="groceries">Groceries</SelectItem>
                 <SelectItem value="foods">Foods</SelectItem>
                 <SelectItem value="utilities">Utilities</SelectItem>
+                <SelectItem value="subscriptions">Subscriptions</SelectItem>
+                <SelectItem value="miscellaneous">Miscellaneous</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -1,6 +1,7 @@
+import { UUID } from "crypto";
 
 export type Transaction = {
-    id: number;
+    id: UUID;
     description: string;
     category: string;
     amount: number;
