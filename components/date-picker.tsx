@@ -17,9 +17,10 @@ import {
 interface DatePickerProps {
   date: Date | undefined
   onDateChange: (date: Date | undefined) => void
+  className?: string;
 }
 
-export function DatePicker({ date, onDateChange }: DatePickerProps) {
+export function DatePicker({ date, onDateChange, className }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -27,7 +28,7 @@ export function DatePicker({ date, onDateChange }: DatePickerProps) {
           variant={"outline"}
           className={cn(
             "flex justify-between w-auto text-left font-normal",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground", className
           )}
         >
           <span>{date ? format(date, "PPP") : "Pick a date"}</span>

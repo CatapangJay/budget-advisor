@@ -1,11 +1,8 @@
-import PageContainer from '@/components/layout/page-container';
-import { TransactionsTable } from '@/components/transactions/transactions-tables';
-import { buttonVariants } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
-import { Plus } from 'lucide-react';
-import Link from 'next/link';
+import PageContainer from "@/components/layout/page-container";
+import { TransactionsTable } from "@/components/transactions/transactions-tables";
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
+import TransactionForm from "./transaction-form";
 
 type TTransactionListingPage = {};
 
@@ -19,13 +16,7 @@ export default async function TransactionListingPage({}: TTransactionListingPage
             title={`Transactions`}
             description="Manage transactions and their details."
           />
-
-          <Link
-            href={'/dashboard/employee/new'}
-            className={cn(buttonVariants({ variant: 'default' }))}
-          >
-            <Plus className="mr-2 h-4 w-4" /> Add New
-          </Link>
+          <TransactionForm />
         </div>
         <Separator />
         <TransactionsTable />

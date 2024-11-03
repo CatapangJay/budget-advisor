@@ -12,12 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 import { createClient } from "@/utils/supabase/client";
 import { addTransaction } from "@/services/supabase/transaction-services";
 import { Transaction, TransactionType } from "../../models/transaction-models";
 import { DatePicker } from "../date-picker";
+import { categories } from "@/constants/data";
 
 
 export function AddTransaction() {
@@ -84,11 +85,19 @@ export function AddTransaction() {
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="groceries">Groceries</SelectItem>
-                <SelectItem value="foods">Foods</SelectItem>
-                <SelectItem value="utilities">Utilities</SelectItem>
-                <SelectItem value="subscriptions">Subscriptions</SelectItem>
-                <SelectItem value="miscellaneous">Miscellaneous</SelectItem>
+                {categories.map((category) => (
+                  <SelectGroup key={category.category}>
+                    <SelectLabel>
+                      <category.icon className="mr-2 h-4 w-4 inline" />
+                      {category.category}
+                    </SelectLabel>
+                    {category.subcategories.map((subcategory) => (
+                      <SelectItem key={category.category + '_' + subcategory.name} value={subcategory.name}>
+                        {subcategory.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                ))}
               </SelectContent>
             </Select>
           </div>

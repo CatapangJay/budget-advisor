@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import {
+  Banknote,
   BookOpen,
   Bot,
   ChartPie,
@@ -52,14 +53,14 @@ const data = {
   navMain: [
     {
       title: "Overview",
-      url: "dashboard",
+      url: "overview",
       icon: ChartPie,
       isActive: true,
     },
     {
       title: "Transactions",
       url: "transactions",
-      icon: Coins,
+      icon: Banknote,
     },
     {
       title: "Budgets",
@@ -82,23 +83,6 @@ const data = {
       title: "Settings",
       url: "#",
       icon: Settings2,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
     },
   ],
 }
@@ -126,7 +110,6 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
         </SidebarHeader>
         <SidebarContent>
           <NavMain items={data.navMain} />
-          <NavProjects projects={data.projects} />
           <NavSecondary items={data.navSecondary} className="mt-auto" />
         </SidebarContent>
         <SidebarFooter>
