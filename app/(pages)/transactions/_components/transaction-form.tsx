@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -37,6 +38,8 @@ import {
 } from "@/components/ui/select";
 import { SubmitButton } from "@/components/submit-button";
 import { DatePicker } from "@/components/date-picker";
+import { TimePicker } from "@/components/time-picker";
+import { DatetimePicker } from "@/components/datetime-picker";
 
 const formSchema = z.object({
   description: z
@@ -78,7 +81,7 @@ export default function TransactionForm() {
       type: TransactionType.EXPENSE,
       category: "",
       subcategory: "",
-      transaction_date: new Date(),
+      transaction_date: new Date()
     },
   });
 
@@ -99,8 +102,6 @@ export default function TransactionForm() {
 
     const transactionData: Omit<Transaction, "id" | "created_at"> = {
       ...values,
-      category,
-      subcategory,
     };
 
     addTransaction(transactionData)
@@ -125,7 +126,7 @@ export default function TransactionForm() {
           Add New
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Add New Transaction</DialogTitle>
           <DialogDescription>Create a new transaction.</DialogDescription>
@@ -138,6 +139,7 @@ export default function TransactionForm() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Description" {...field} />
                     </FormControl>
@@ -150,6 +152,7 @@ export default function TransactionForm() {
                 name="amount"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Amount</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -171,6 +174,7 @@ export default function TransactionForm() {
                 name="type"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Type</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -198,6 +202,7 @@ export default function TransactionForm() {
                 name="category"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Transaction Amount</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={(value) => {
@@ -233,6 +238,7 @@ export default function TransactionForm() {
                 name="subcategory"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Category</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -264,21 +270,27 @@ export default function TransactionForm() {
                 control={form.control}
                 name="transaction_date"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="">
+                    <FormLabel>Transaction Date</FormLabel>
                     <FormControl>
-                      <DatePicker
-                        className="w-full"
-                        date={field.value}
-                        onDateChange={(date) => field.onChange(date)}
+                      <DatetimePicker
+                        {...field}
+                        format={[
+                          ["months", "days", "years"],
+                          ["hours", "minutes", "am/pm"],
+                        ]}
                       />
                     </FormControl>
+                    {/* <FormDescription>Add Transaction Date and Time (default is Today).</FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+             
             </div>
             <SubmitButton
-              className="w-full"
+              className="w-full !mt-4"
               type="submit"
               disabled={!formState.isValid}
             >

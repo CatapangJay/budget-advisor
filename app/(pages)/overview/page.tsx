@@ -1,6 +1,6 @@
 import { AppSidebar } from "@/components/layout/app-sidebar"
 import { AddTransaction } from "@/components/transactions/transaction-add"
-import { TransactionsMonthTotalCard, TransactionsTotalsCard } from "@/components/transactions/transactions-totals"
+import { TransactionsMonthTotalExpenseCard, TransactionsMonthTotalIncomeCard, TransactionsTotalsCard } from "@/components/transactions/transactions-totals"
 import { RecentTransactionsTable } from "@/components/transactions/transactions-tables"
 import {
   Breadcrumb,
@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
       <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4">
           {/* <Card
                 className="sm:col-span-2"
                 x-chunk="A card for an orders dashboard with a description and a button to create a new order."
@@ -45,7 +45,8 @@ export default function Page() {
               </Card> */}
           {/* <TransactionsTotalsCard className="sm:col-span-2" /> */}
           <TransactionsTotalsCard />
-          <TransactionsMonthTotalCard />
+          <TransactionsMonthTotalExpenseCard />
+          <TransactionsMonthTotalIncomeCard />
         </div>
         <Tabs defaultValue="week">
           <div className="flex items-center">
@@ -94,9 +95,6 @@ export default function Page() {
             <RecentTransactionsTable />
           </TabsContent>
         </Tabs>
-      </div>
-      <div>
-        <AddTransaction />
       </div>
     </main>
   )

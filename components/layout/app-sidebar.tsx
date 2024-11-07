@@ -4,22 +4,14 @@ import * as React from "react"
 import {
   Banknote,
   BookOpen,
-  Bot,
   ChartPie,
-  Coins,
-  Command,
   Component,
-  Frame,
   LifeBuoy,
-  Map,
-  PieChart,
-  Send,
   Settings2,
-  SquareTerminal,
+  Command,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -51,43 +43,25 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
-    {
-      title: "Overview",
-      url: "overview",
-      icon: ChartPie,
-      isActive: true,
-    },
-    {
-      title: "Transactions",
-      url: "transactions",
-      icon: Banknote,
-    },
-    {
-      title: "Budgets",
-      url: "budgets",
-      icon: BookOpen,
-    },
-    {
-      title: "Categories",
-      url: "categories",
-      icon: Component,
-    },
+    { title: "Overview", url: "overview", icon: ChartPie, isActive: true },
+    { title: "Transactions", url: "transactions", icon: Banknote },
+    { title: "Budgets", url: "budgets", icon: BookOpen },
+    { title: "Categories", url: "categories", icon: Component },
   ],
   navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-    },
+    { title: "Support", url: "#", icon: LifeBuoy },
+    { title: "Settings", url: "#", icon: Settings2 },
   ],
 }
 
 export function AppSidebar({ children, ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [activeTitle, setActiveTitle] = React.useState("Overview") // default active title
+
+  // Handler for updating the active breadcrumb title
+  const handleNavClick = (title: string) => {
+    setActiveTitle(title)
+  }
+
   return (
     <SidebarProvider>
       <Sidebar variant="inset" {...props}>
@@ -100,8 +74,8 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
                     <Command className="size-4" />
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">Acme Inc</span>
-                    <span className="truncate text-xs">Enterprise</span>
+                    <span className="truncate font-semibold">Pitaka</span>
+                    <span className="truncate text-xs">Budget Advisor</span>
                   </div>
                 </a>
               </SidebarMenuButton>
@@ -109,7 +83,8 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
           </SidebarMenu>
         </SidebarHeader>
         <SidebarContent>
-          <NavMain items={data.navMain} />
+          {/* Pass handleNavClick to NavMain so it can update the breadcrumb */}
+          <NavMain items={data.navMain} onNavClick={handleNavClick} />
           <NavSecondary items={data.navSecondary} className="mt-auto" />
         </SidebarContent>
         <SidebarFooter>
@@ -125,13 +100,13 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Budgets
+                    {activeTitle} {/* Dynamically show active title */}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
+                {/* <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
                   <BreadcrumbPage>Overview</BreadcrumbPage>
-                </BreadcrumbItem>
+                </BreadcrumbItem> */}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
@@ -141,90 +116,3 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
     </SidebarProvider>
   )
 }
-// navMain: [
-//   {
-//     title: "Playground",
-//     url: "#",
-//     icon: SquareTerminal,
-//     isActive: true,
-//     items: [
-//       {
-//         title: "History",
-//         url: "#",
-//       },
-//       {
-//         title: "Starred",
-//         url: "#",
-//       },
-//       {
-//         title: "Settings",
-//         url: "#",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Models",
-//     url: "#",
-//     icon: Bot,
-//     items: [
-//       {
-//         title: "Genesis",
-//         url: "#",
-//       },
-//       {
-//         title: "Explorer",
-//         url: "#",
-//       },
-//       {
-//         title: "Quantum",
-//         url: "#",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Documentation",
-//     url: "#",
-//     icon: BookOpen,
-//     items: [
-//       {
-//         title: "Introduction",
-//         url: "#",
-//       },
-//       {
-//         title: "Get Started",
-//         url: "#",
-//       },
-//       {
-//         title: "Tutorials",
-//         url: "#",
-//       },
-//       {
-//         title: "Changelog",
-//         url: "#",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Settings",
-//     url: "#",
-//     icon: Settings2,
-//     items: [
-//       {
-//         title: "General",
-//         url: "#",
-//       },
-//       {
-//         title: "Team",
-//         url: "#",
-//       },
-//       {
-//         title: "Billing",
-//         url: "#",
-//       },
-//       {
-//         title: "Limits",
-//         url: "#",
-//       },
-//     ],
-//   },
-// ],

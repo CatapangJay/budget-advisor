@@ -1,7 +1,6 @@
 "use client"
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -19,9 +18,12 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import React from "react"
 
+// Update NavMain to include onNavClick prop
 export function NavMain({
   items,
+  onNavClick,
 }: {
   items: {
     title: string
@@ -33,7 +35,10 @@ export function NavMain({
       url: string
     }[]
   }[]
+  onNavClick: (title: string) => void // New prop for click handler
 }) {
+  const [activeTitle, setActiveTitle] = React.useState("Overview");
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -41,15 +46,21 @@ export function NavMain({
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.title}>
+              {/* Update Link to call onNavClick with item's title */}
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                onClick={() => {
+                  setActiveTitle(item.title);
+                  onNavClick(item.title)
+                }}
+                // className={activeTitle === item.title ? "active" : ""}
+                isActive={activeTitle === item.title}
+              >
                 <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
                 </Link>
-                {/* <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a> */}
               </SidebarMenuButton>
               {item.items?.length ? (
                 <>

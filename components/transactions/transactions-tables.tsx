@@ -82,6 +82,9 @@ export function TransactionsTable() {
                 <TableHead>Description</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Subcategory</TableHead>
+                <TableHead>Transaction Date</TableHead>
                 <TableHead>Actions</TableHead>
                 {/* Add other column headers as needed */}
               </TableRow>
@@ -94,7 +97,30 @@ export function TransactionsTable() {
                   </TableCell>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.type}</TableCell>
-                  <TableCell>{transaction.amount}</TableCell>
+                  <TableCell
+                    className={`font-bold ${transaction.type === "income"
+                      ? "text-green-600"
+                      : "text-red-600"
+                      }`}>{transaction.type === "income" ? "+" : "-"}₱
+                    {transaction.amount.toFixed(2)}
+                  </TableCell>
+                  <TableCell>{transaction.category}</TableCell>
+                  <TableCell>{transaction.subcategory}</TableCell>
+                  <TableCell>
+                    {transaction.transaction_date
+                      ? new Date(transaction.transaction_date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }) +
+                      " " +
+                      new Date(transaction.transaction_date).toLocaleTimeString("en-US", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true, // AM/PM format
+                      })
+                      : "N/A"}
+                  </TableCell>
                   <TableCell>
                     <Button variant="outline" size="sm">
                       <Edit size={16} />
@@ -183,7 +209,7 @@ export function RecentTransactionsTable() {
                     : "text-red-600"
                     }`}
                 >
-                  {transaction.type === "income" ? "+" : "-"}$
+                  {transaction.type === "income" ? "+" : "-"}₱
                   {transaction.amount.toFixed(2)}
                 </div>
               </div>

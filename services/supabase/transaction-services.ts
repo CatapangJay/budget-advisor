@@ -44,7 +44,7 @@ export async function getNetTotal(): Promise<number> {
     return data || 0
 }
 
-export async function getMonthTotal(): Promise<number> {
+export async function getNetMonthTotal(): Promise<number> {
     const { data, error } = await supabase
         .rpc('get_net_total_current_month')
 
@@ -56,6 +56,26 @@ export async function getMonthTotal(): Promise<number> {
     // `data` will return an array with the sum of 'amount'
     return data || 0
 }
+
+
+export async function getMonthTotal(type: string, targetMonth: Date = new Date()): Promise<number> {
+    // Convert the Date object to a string in the format 'YYYY-MM-DD'
+    const targetMonthString = targetMonth.toISOString().slice(0, 10);
+
+    // Call the Supabase RPC function to get the total for the specified type and month
+    const { data, error } = await supabase
+        .rpc('get_monthly_total', { target_month: targetMonthString, trans_type: type });
+
+    // Handle any errors from the RPC call
+    if (error) {
+        console.error(`Error fetching total ${type} for specified month:`, error);
+        return 0;
+    }
+
+    // Return the sum of 'amount' for the specified month or 0 if no data
+    return data || 0;
+}
+
 
 export async function addTransaction(transaction: Omit<Transaction, 'id' | 'created_at'>): Promise<Transaction | null> {
     const { data, error } = await supabase
