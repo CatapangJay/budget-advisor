@@ -1,25 +1,7 @@
-import { AppSidebar } from "@/components/layout/app-sidebar"
-import { AddTransaction } from "@/components/transactions/transaction-add"
 import { TransactionsMonthTotalExpenseCard, TransactionsMonthTotalIncomeCard, TransactionsTotalsCard } from "@/components/transactions/transactions-totals"
 import { RecentTransactionsTable } from "@/components/transactions/transactions-tables"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardDescription, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem } from "@radix-ui/react-dropdown-menu"
-import { Progress } from "@radix-ui/react-progress"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs"
 import { ListFilter, File } from "lucide-react"
 
