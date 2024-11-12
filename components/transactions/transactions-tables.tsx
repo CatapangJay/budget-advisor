@@ -30,9 +30,10 @@ export function TransactionsTable() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (transactions.length === 0) {
-      loadTransactions();
-    }
+    loadTransactions();
+  }, []);
+  
+  useEffect(() => {
     const channel = supabase
       .channel("realtime transactions")
       .on(
