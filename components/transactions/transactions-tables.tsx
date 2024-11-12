@@ -178,7 +178,7 @@ export function RecentTransactionsTable() {
   }
 
   return (
-    <Card className="mt-6">
+    <Card>
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
         <CardDescription>Your latest financial activities.</CardDescription>
