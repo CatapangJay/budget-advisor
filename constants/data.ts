@@ -47,6 +47,7 @@ import {
     Plane,
     Shirt,
     Sofa,
+    HandCoinsIcon,
   } from "lucide-react";
   
   export interface Subcategory {
@@ -83,6 +84,7 @@ import {
         { name: "Government Benefits", icon: Banknote, type: CategoryType.INCOME },
         { name: "Gifts", icon: Gift, type: CategoryType.INCOME },
         { name: "Refunds", icon: RotateCw, type: CategoryType.INCOME },
+        { name: "Debt Payments", icon: HandCoinsIcon, type: CategoryType.INCOME },
         { name: "Other Income", icon: PlusCircle, type: CategoryType.INCOME }
       ]
     },

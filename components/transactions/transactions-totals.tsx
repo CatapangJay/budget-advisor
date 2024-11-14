@@ -87,9 +87,10 @@ export function TransactionsMonthTotalExpenseCard({ className }: { className?: s
     const channel = supabase.channel('realtime expense month Total').on('postgres_changes', {
       event: 'INSERT', schema: 'public', table: 'transactions'
     }, (payload) => {
-      setMonthTotalAmount(prevTotal => {
-        const amountChange = payload.new.type === 'income' ? -payload.new.amount : payload.new.amount;
-        return (prevTotal ?? 0) + amountChange;
+      setMonthTotalAmount(prevTotal => {        
+        if (payload.new.type === 'expense') {
+          return (prevTotal ?? 0) + payload.new.amount;
+        }
       });
     }).subscribe();
 
@@ -150,8 +151,9 @@ export function TransactionsMonthTotalIncomeCard({ className }: { className?: st
       event: 'INSERT', schema: 'public', table: 'transactions'
     }, (payload) => {
       setMonthTotalAmount(prevTotal => {
-        const amountChange = payload.new.type === 'income' ? -payload.new.amount : payload.new.amount;
-        return (prevTotal ?? 0) + amountChange;
+        if (payload.new.type === 'income') {
+          return (prevTotal ?? 0) + payload.new.amount;
+        }
       });
     }).subscribe();
 
