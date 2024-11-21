@@ -76,6 +76,29 @@ export async function getMonthTotal(type: string, targetMonth: Date = new Date()
     return data || 0;
 }
 
+export async function getDailyExpenses(
+    startDate: Date,
+    endDate: Date
+): Promise<{ day: string; daily_expense: number }[]> {
+    // Convert startDate and endDate to 'YYYY-MM-DD' format strings
+    const start_date = startDate.toISOString().slice(0, 10);
+    const end_date = endDate.toISOString().slice(0, 10);
+
+    // Call the Supabase RPC function for 'get_daily_expenses'
+    const { data, error } = await supabase.rpc('get_daily_expenses', {
+        start_date,
+        end_date,
+    });
+
+    // Handle any errors from the RPC call
+    if (error) {
+        console.error('Error fetching daily expenses:', error);
+        return [];
+    }
+
+    // Return the array of daily expenses
+    return data || [];
+}
 
 export async function addTransaction(transaction: Omit<Transaction, 'id' | 'created_at'>): Promise<Transaction | null> {
     const { data, error } = await supabase

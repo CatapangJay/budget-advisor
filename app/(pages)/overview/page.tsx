@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLab
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs"
 import { ListFilter, File, Plus } from "lucide-react"
 import TransactionForm from "./_components/transaction-form"
+import { DailyExpenses } from "./_components/transactions-bargraph"
 
 export default function Page() {
   return (
@@ -32,6 +33,9 @@ export default function Page() {
           <TransactionsMonthTotalIncomeCard />
           <TransactionsNetTotalIncomeCard />
         </div>
+        <DailyExpenses />
+      </div>
+      <div>
         <RecentTransactionsTable />
       </div>
 
