@@ -132,9 +132,19 @@ export function DailyExpenses() {
                                 fontSize={12}
                                 tickLine={false}
                                 axisLine={false}
-                                tickFormatter={(value) => `$${value.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                                tickFormatter={(value) => `₱${value.toLocaleString("en-PH")}`}
                             />
-                            <ChartTooltip content={<ChartTooltipContent hideLabel={true} hideIndicator={true} />} />
+                            <ChartTooltip content={<ChartTooltipContent hideLabel={true} formatter={(value, name) => (
+                                <div className="flex min-w-[130px] items-center text-xs text-muted-foreground">
+                                    {chartConfig[name as keyof typeof chartConfig]?.label ||
+                                        name}
+                                    <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+                                        <span className="font-normal text-muted-foreground">
+                                            ₱
+                                        </span>{value.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    </div>
+                                </div>
+                            )} />} />
                             <Bar dataKey="daily_expense" fill="#adfa1d" radius={[4, 4, 0, 0]} />
                         </BarChart>
                     </ChartContainer>
