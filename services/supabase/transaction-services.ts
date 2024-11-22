@@ -100,6 +100,27 @@ export async function getDailyExpenses(
     return data || [];
 }
 
+export async function getExpensesByCategory(
+    targetMonth: Date
+): Promise<{ category: string; total_expense: number }[]> {
+    // Convert targetMonth to 'YYYY-MM-DD' format string
+    const target_month = targetMonth.toISOString().slice(0, 10);
+
+    // Call the Supabase RPC function for 'get_monthly_expenses_per_category'
+    const { data, error } = await supabase.rpc('get_monthly_expenses_per_category', {
+        target_month,
+    });
+
+    // Handle any errors from the RPC call
+    if (error) {
+        console.error('Error fetching monthly expenses per category:', error);
+        return [];
+    }
+
+    // Return the array of expenses grouped by category
+    return data || [];
+}
+
 export async function addTransaction(transaction: Omit<Transaction, 'id' | 'created_at'>): Promise<Transaction | null> {
     const { data, error } = await supabase
         .from('transactions')

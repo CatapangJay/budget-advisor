@@ -36,7 +36,7 @@ export default function Page() {
         </div>
         <DailyExpenses />
       </div>
-      <div>
+      <div className="grid gap-4">
         <TransactionsCategoryDonut />
         <RecentTransactionsTable />
       </div>
